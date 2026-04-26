@@ -23,6 +23,18 @@ const BuildDetailsPage = () => {
     void run();
   }, [slug]);
 
+  useEffect(() => {
+    if (!build) return;
+
+    const firstDownloadId =
+      build.downloadFiles && build.downloadFiles.length > 0
+        ? build.downloadFiles[0].id
+        : `${build.id}-default`;
+
+    setSelectedDownloadId(firstDownloadId);
+    setDownloadMenuOpen(false);
+  }, [build]);
+
   if (isLoading) {
     return <main className="layout"><div className="state-card">Loading build details...</div></main>;
   }
@@ -50,13 +62,7 @@ const BuildDetailsPage = () => {
           }
         ];
 
-  const selectedDownload =
-    downloadFiles.find((file) => file.id === selectedDownloadId) ?? downloadFiles[0];
-
-  useEffect(() => {
-    setSelectedDownloadId(downloadFiles[0]?.id ?? "");
-    setDownloadMenuOpen(false);
-  }, [build?.id]);
+  const selectedDownload = downloadFiles.find((file) => file.id === selectedDownloadId) ?? downloadFiles[0];
 
   const availableFormats = [...new Set(downloadFiles.map((file) => file.format))].join(", ");
 
