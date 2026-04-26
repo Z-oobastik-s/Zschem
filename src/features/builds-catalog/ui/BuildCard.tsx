@@ -22,7 +22,7 @@ export const BuildCard = ({ build }: BuildCardProps) => (
         <span>{formatDate(build.dateAdded)}</span>
       </div>
       <div className="build-card__tags">
-        {build.tags.map((tag) => (
+        {build.categories.map((tag) => (
           <span key={tag} className="tag-pill">
             {tag}
           </span>

@@ -27,11 +27,6 @@ export const useBuildsCatalog = () => {
     void run();
   }, [query]);
 
-  const allTags = useMemo(
-    () => [...new Set(MOCK_BUILDS.flatMap((build) => build.tags))].sort((a, b) => a.localeCompare(b)),
-    []
-  );
-
   const allCategories = useMemo(
     () =>
       [...new Set(MOCK_BUILDS.flatMap((build) => build.categories))].sort((a, b) => a.localeCompare(b)),
@@ -57,11 +52,11 @@ export const useBuildsCatalog = () => {
     items,
     isLoading,
     query,
-    allTags,
     allCategories,
     allFormats,
     setSearch,
-    toggleTag: (tag: string) => toggleFilter("tags", tag),
+    clearFilters: () => setQuery(initialQuery),
+    hasActiveFilters: query.search.length > 0 || query.categories.length > 0 || query.formats.length > 0,
     toggleCategory: (category: string) => toggleFilter("categories", category),
     toggleFormat: (format: BuildFileFormat) => toggleFilter("formats", format)
   };

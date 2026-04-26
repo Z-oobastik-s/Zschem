@@ -3,7 +3,18 @@ import { FiltersPanel } from "@features/builds-catalog/ui/FiltersPanel";
 import { useBuildsCatalog } from "@features/builds-catalog/model/useBuildsCatalog";
 
 const HomePage = () => {
-  const { items, isLoading, query, allTags, allCategories, allFormats, setSearch, toggleTag, toggleCategory, toggleFormat } =
+  const {
+    items,
+    isLoading,
+    query,
+    allCategories,
+    allFormats,
+    setSearch,
+    clearFilters,
+    hasActiveFilters,
+    toggleCategory,
+    toggleFormat
+  } =
     useBuildsCatalog();
 
   return (
@@ -17,13 +28,14 @@ const HomePage = () => {
       </header>
       <FiltersPanel
         query={query}
-        allTags={allTags}
         allCategories={allCategories}
         allFormats={allFormats}
+        visibleCount={items.length}
         onSearch={setSearch}
-        onToggleTag={toggleTag}
         onToggleCategory={toggleCategory}
         onToggleFormat={toggleFormat}
+        onClear={clearFilters}
+        hasActiveFilters={hasActiveFilters}
       />
       <BuildGrid builds={items} isLoading={isLoading} />
     </main>

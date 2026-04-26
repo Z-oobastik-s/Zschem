@@ -3,32 +3,40 @@ import { Chip } from "@shared/ui/Chip";
 
 interface FiltersPanelProps {
   query: BuildQueryParams;
-  allTags: string[];
   allCategories: string[];
   allFormats: BuildFileFormat[];
+  visibleCount: number;
   onSearch: (value: string) => void;
-  onToggleTag: (tag: string) => void;
   onToggleCategory: (category: string) => void;
   onToggleFormat: (format: BuildFileFormat) => void;
+  onClear: () => void;
+  hasActiveFilters: boolean;
 }
 
 export const FiltersPanel = ({
   query,
-  allTags,
   allCategories,
   allFormats,
+  visibleCount,
   onSearch,
-  onToggleTag,
   onToggleCategory,
-  onToggleFormat
+  onToggleFormat,
+  onClear,
+  hasActiveFilters
 }: FiltersPanelProps) => (
   <section className="filters-panel">
-    <input
-      className="neon-input"
-      value={query.search}
-      onChange={(event) => onSearch(event.target.value)}
-      placeholder="Search by title, description or tag"
-    />
+    <div className="filters-panel__top">
+      <input
+        className="neon-input"
+        value={query.search}
+        onChange={(event) => onSearch(event.target.value)}
+        placeholder="Search by build title"
+      />
+      <button className="neon-button neon-button--ghost filters-panel__clear" type="button" onClick={onClear} disabled={!hasActiveFilters}>
+        Reset
+      </button>
+    </div>
+    <div className="filters-panel__stats">{visibleCount} builds found</div>
     <div className="filters-panel__group">
       <h4>Formats</h4>
       <div className="chip-list">
@@ -47,14 +55,6 @@ export const FiltersPanel = ({
             active={query.categories.includes(category)}
             onClick={() => onToggleCategory(category)}
           />
-        ))}
-      </div>
-    </div>
-    <div className="filters-panel__group">
-      <h4>Tags</h4>
-      <div className="chip-list">
-        {allTags.map((tag) => (
-          <Chip key={tag} label={tag} active={query.tags.includes(tag)} onClick={() => onToggleTag(tag)} />
         ))}
       </div>
     </div>
