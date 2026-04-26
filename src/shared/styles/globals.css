@@ -328,11 +328,9 @@ a {
 }
 
 .intro-overlay__video {
-  width: 100vh;
-  height: 100vw;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
-  transform: rotate(90deg) scale(1.03);
-  transform-origin: center center;
 }
 
 @media (max-width: 900px) {
