@@ -336,8 +336,8 @@ a {
 .details-actions {
   display: grid;
   gap: 0.55rem;
-  position: relative;
-  min-width: 230px;
+  min-width: 165px;
+  justify-items: end;
 }
 
 .neon-button {
@@ -370,6 +370,15 @@ a {
   overflow: hidden;
   transform: translateY(-4px);
   transition: all 0.22s ease;
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  width: 100%;
+  background: rgba(3, 8, 18, 0.96);
+  border: 1px solid rgba(71, 229, 255, 0.22);
+  border-radius: 10px;
+  padding: 0.35rem;
+  z-index: 6;
 }
 
 .download-dropdown--open {
@@ -394,6 +403,41 @@ a {
 .download-dropdown__item--active {
   border-color: rgba(71, 229, 255, 0.72);
   background: rgba(10, 35, 58, 0.9);
+}
+
+.details-download-inline {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.35rem;
+  margin-top: 0.55rem;
+  max-width: 560px;
+}
+
+.details-download-inline__trigger {
+  clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+  border: 1px solid rgba(0, 240, 255, 0.65);
+  background: linear-gradient(180deg, rgba(0, 58, 78, 0.36), rgba(0, 21, 34, 0.66));
+  color: #d6fbff;
+  padding: 0.5rem 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.details-download-inline__toggle {
+  border: 1px solid rgba(71, 229, 255, 0.35);
+  background: rgba(6, 14, 28, 0.68);
+  color: #d9fbff;
+  border-radius: 8px;
+  padding: 0.5rem 0.62rem;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
 }
 
 .filters-panel__clear:disabled {

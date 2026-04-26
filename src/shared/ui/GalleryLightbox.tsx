@@ -44,6 +44,7 @@ export const GalleryLightbox = ({ images }: GalleryLightboxProps) => {
           alt={images[active].alt}
           className={`gallery__image ${zoomed ? "gallery__image--zoomed" : ""}`}
           onClick={() => setZoomed((value) => !value)}
+          decoding="async"
         />
         <button className="gallery__nav" type="button" onClick={next}>
           {">"}
@@ -57,7 +58,7 @@ export const GalleryLightbox = ({ images }: GalleryLightboxProps) => {
             className={`gallery__thumb ${index === active ? "gallery__thumb--active" : ""}`}
             onClick={() => setActive(index)}
           >
-            <img src={image.imageUrl} alt={image.alt} loading="lazy" />
+            <img src={image.imageUrl} alt={image.alt} loading="lazy" decoding="async" />
           </button>
         ))}
       </div>

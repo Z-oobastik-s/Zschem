@@ -9,7 +9,13 @@ interface BuildCardProps {
 export const BuildCard = ({ build }: BuildCardProps) => (
   <article className="build-card">
     <Link className="build-card__image-wrap" to={`/build/${build.slug}`}>
-      <img className="build-card__image" src={build.images[0]?.imageUrl} alt={build.images[0]?.alt} loading="lazy" />
+      <img
+        className="build-card__image"
+        src={build.images[0]?.imageUrl}
+        alt={build.images[0]?.alt}
+        loading="lazy"
+        decoding="async"
+      />
     </Link>
     <div className="build-card__content">
       <div className="build-card__title-row">

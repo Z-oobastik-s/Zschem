@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { BuildModel } from "@domain/build/model/types";
 import { buildsService } from "@domain/build/service/buildsService";
@@ -12,6 +12,7 @@ const BuildDetailsPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [downloadMenuOpen, setDownloadMenuOpen] = useState<boolean>(false);
   const [selectedDownloadId, setSelectedDownloadId] = useState<string>("");
+  const downloadMenuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const run = async () => {
@@ -34,6 +35,21 @@ const BuildDetailsPage = () => {
     setSelectedDownloadId(firstDownloadId);
     setDownloadMenuOpen(false);
   }, [build]);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (downloadMenuRef.current && !downloadMenuRef.current.contains(target)) {
+        setDownloadMenuOpen(false);
+      }
+    };
+
+    if (downloadMenuOpen) {
+      window.addEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => window.removeEventListener("mousedown", handleOutsideClick);
+  }, [downloadMenuOpen]);
 
   if (isLoading) {
     return <main className="layout"><div className="state-card">Loading build details...</div></main>;
@@ -82,32 +98,41 @@ const BuildDetailsPage = () => {
               </span>
             ))}
           </div>
-        </div>
-        <div
-          className="details-actions"
-          onMouseEnter={() => setDownloadMenuOpen(true)}
-          onMouseLeave={() => setDownloadMenuOpen(false)}
-        >
-          <NeonButton href={selectedDownload.fileUrl} download>
-            Download {selectedDownload.format}
-            {selectedDownload.sizeBytes ? ` - ${formatBytes(selectedDownload.sizeBytes)}` : ""}
-          </NeonButton>
-          <div className={`download-dropdown ${downloadMenuOpen ? "download-dropdown--open" : ""}`}>
-            {downloadFiles.map((file) => (
-              <button
-                key={file.id}
-                type="button"
-                className={`download-dropdown__item ${file.id === selectedDownload.id ? "download-dropdown__item--active" : ""}`}
-                onClick={() => {
-                  setSelectedDownloadId(file.id);
-                  setDownloadMenuOpen(false);
-                }}
-              >
-                {file.format}
-                {file.sizeBytes ? ` - ${formatBytes(file.sizeBytes)}` : ""}
-              </button>
-            ))}
+          <div className="details-download-inline" ref={downloadMenuRef}>
+            <a
+              className="details-download-inline__trigger"
+              href={selectedDownload.fileUrl}
+              download
+            >
+              Download {selectedDownload.format}
+              {selectedDownload.sizeBytes ? ` - ${formatBytes(selectedDownload.sizeBytes)}` : ""}
+            </a>
+            <button
+              type="button"
+              className="details-download-inline__toggle"
+              onClick={() => setDownloadMenuOpen((value) => !value)}
+            >
+              Choose format
+            </button>
+            <div className={`download-dropdown ${downloadMenuOpen ? "download-dropdown--open" : ""}`}>
+              {downloadFiles.map((file) => (
+                <button
+                  key={file.id}
+                  type="button"
+                  className={`download-dropdown__item ${file.id === selectedDownload.id ? "download-dropdown__item--active" : ""}`}
+                  onClick={() => {
+                    setSelectedDownloadId(file.id);
+                    setDownloadMenuOpen(false);
+                  }}
+                >
+                  {file.format}
+                  {file.sizeBytes ? ` - ${formatBytes(file.sizeBytes)}` : ""}
+                </button>
+              ))}
+            </div>
           </div>
+        </div>
+        <div className="details-actions">
           <NeonButton href={buildsService.resolveJsonLink(build.slug)} variant="ghost">
             JSON Endpoint
           </NeonButton>
