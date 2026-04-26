@@ -1,5 +1,4 @@
 import { BuildFileFormat, BuildQueryParams } from "@domain/build/model/types";
-import { Chip } from "@shared/ui/Chip";
 
 interface FiltersPanelProps {
   query: BuildQueryParams;
@@ -11,6 +10,8 @@ interface FiltersPanelProps {
   onToggleFormat: (format: BuildFileFormat) => void;
   onClear: () => void;
   hasActiveFilters: boolean;
+  collapsed: boolean;
+  onToggleCollapsed: () => void;
 }
 
 export const FiltersPanel = ({
@@ -22,9 +23,17 @@ export const FiltersPanel = ({
   onToggleCategory,
   onToggleFormat,
   onClear,
-  hasActiveFilters
+  hasActiveFilters,
+  collapsed,
+  onToggleCollapsed
 }: FiltersPanelProps) => (
-  <section className="filters-panel">
+  <aside className={`filters-panel filters-panel--sidebar ${collapsed ? "filters-panel--collapsed" : ""}`}>
+    <div className="filters-panel__header">
+      <h3>Filters</h3>
+      <button className="filters-panel__collapse" type="button" onClick={onToggleCollapsed}>
+        {collapsed ? ">" : "<"}
+      </button>
+    </div>
     <div className="filters-panel__top">
       <input
         className="neon-input"
@@ -32,31 +41,45 @@ export const FiltersPanel = ({
         onChange={(event) => onSearch(event.target.value)}
         placeholder="Search by build title"
       />
-      <button className="neon-button neon-button--ghost filters-panel__clear" type="button" onClick={onClear} disabled={!hasActiveFilters}>
+      <button
+        className="neon-button neon-button--ghost filters-panel__clear"
+        type="button"
+        onClick={onClear}
+        disabled={!hasActiveFilters}
+      >
         Reset
       </button>
     </div>
     <div className="filters-panel__stats">{visibleCount} builds found</div>
     <div className="filters-panel__group">
       <h4>Formats</h4>
-      <div className="chip-list">
+      <div className="filters-list">
         {allFormats.map((format) => (
-          <Chip key={format} label={format} active={query.formats.includes(format)} onClick={() => onToggleFormat(format)} />
+          <button
+            key={format}
+            className={`filters-item ${query.formats.includes(format) ? "filters-item--active" : ""}`}
+            type="button"
+            onClick={() => onToggleFormat(format)}
+          >
+            {format}
+          </button>
         ))}
       </div>
     </div>
     <div className="filters-panel__group">
       <h4>Categories</h4>
-      <div className="chip-list">
+      <div className="filters-list">
         {allCategories.map((category) => (
-          <Chip
+          <button
             key={category}
-            label={category}
-            active={query.categories.includes(category)}
+            className={`filters-item ${query.categories.includes(category) ? "filters-item--active" : ""}`}
+            type="button"
             onClick={() => onToggleCategory(category)}
-          />
+          >
+            {category}
+          </button>
         ))}
       </div>
     </div>
-  </section>
+  </aside>
 );

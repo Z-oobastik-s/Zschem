@@ -1,6 +1,7 @@
 import { BuildGrid } from "@features/builds-catalog/ui/BuildGrid";
 import { FiltersPanel } from "@features/builds-catalog/ui/FiltersPanel";
 import { useBuildsCatalog } from "@features/builds-catalog/model/useBuildsCatalog";
+import { useState } from "react";
 
 const HomePage = () => {
   const {
@@ -16,28 +17,35 @@ const HomePage = () => {
     toggleFormat
   } =
     useBuildsCatalog();
+  const [filtersCollapsed, setFiltersCollapsed] = useState(false);
 
   return (
     <main className="layout">
-      <header className="hero">
-        <p className="hero__eyebrow">Minecraft Build Distribution Platform</p>
+      <header className="hero hero--compact">
         <h1>Zschem</h1>
+        <span className="hero__divider" />
         <p className="hero__description">
-          Store, preview, filter and distribute premium Minecraft structure files with API-ready architecture.
+          Minecraft build distribution platform. Store, preview, filter and distribute structures.
         </p>
       </header>
-      <FiltersPanel
-        query={query}
-        allCategories={allCategories}
-        allFormats={allFormats}
-        visibleCount={items.length}
-        onSearch={setSearch}
-        onToggleCategory={toggleCategory}
-        onToggleFormat={toggleFormat}
-        onClear={clearFilters}
-        hasActiveFilters={hasActiveFilters}
-      />
-      <BuildGrid builds={items} isLoading={isLoading} />
+      <section className="catalog-shell">
+        <FiltersPanel
+          query={query}
+          allCategories={allCategories}
+          allFormats={allFormats}
+          visibleCount={items.length}
+          onSearch={setSearch}
+          onToggleCategory={toggleCategory}
+          onToggleFormat={toggleFormat}
+          onClear={clearFilters}
+          hasActiveFilters={hasActiveFilters}
+          collapsed={filtersCollapsed}
+          onToggleCollapsed={() => setFiltersCollapsed((prev) => !prev)}
+        />
+        <div className="catalog-shell__grid">
+          <BuildGrid builds={items} isLoading={isLoading} />
+        </div>
+      </section>
     </main>
   );
 };
