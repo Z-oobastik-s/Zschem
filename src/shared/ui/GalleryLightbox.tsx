@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BuildAsset } from "@domain/build/model/types";
 
 interface GalleryLightboxProps {
@@ -13,6 +13,25 @@ export const GalleryLightbox = ({ images }: GalleryLightboxProps) => {
 
   const prev = () => setActive((index) => (index === 0 ? images.length - 1 : index - 1));
   const next = () => setActive((index) => (index === images.length - 1 ? 0 : index + 1));
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        setActive((index) => (index === 0 ? images.length - 1 : index - 1));
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        setActive((index) => (index === images.length - 1 ? 0 : index + 1));
+      }
+      if (event.key === "Escape") {
+        setZoomed(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [images.length]);
 
   return (
     <section className="gallery">

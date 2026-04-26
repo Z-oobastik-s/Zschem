@@ -336,6 +336,8 @@ a {
 .details-actions {
   display: grid;
   gap: 0.55rem;
+  position: relative;
+  min-width: 230px;
 }
 
 .neon-button {
@@ -358,6 +360,40 @@ a {
 .neon-button--ghost {
   border-color: rgba(0, 240, 255, 0.35);
   background: rgba(6, 14, 28, 0.68);
+}
+
+.download-dropdown {
+  display: grid;
+  gap: 0.35rem;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-4px);
+  transition: all 0.22s ease;
+}
+
+.download-dropdown--open {
+  max-height: 220px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.download-dropdown__item {
+  border: 1px solid rgba(71, 229, 255, 0.25);
+  background: rgba(5, 14, 28, 0.85);
+  color: #d8f9ff;
+  border-radius: 8px;
+  text-align: left;
+  padding: 0.44rem 0.6rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.download-dropdown__item--active {
+  border-color: rgba(71, 229, 255, 0.72);
+  background: rgba(10, 35, 58, 0.9);
 }
 
 .filters-panel__clear:disabled {

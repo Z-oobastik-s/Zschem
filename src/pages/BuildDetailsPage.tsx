@@ -10,6 +10,8 @@ const BuildDetailsPage = () => {
   const { slug = "" } = useParams();
   const [build, setBuild] = useState<BuildModel | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [downloadMenuOpen, setDownloadMenuOpen] = useState<boolean>(false);
+  const [selectedDownloadId, setSelectedDownloadId] = useState<string>("");
 
   useEffect(() => {
     const run = async () => {
@@ -48,6 +50,14 @@ const BuildDetailsPage = () => {
           }
         ];
 
+  const selectedDownload =
+    downloadFiles.find((file) => file.id === selectedDownloadId) ?? downloadFiles[0];
+
+  useEffect(() => {
+    setSelectedDownloadId(downloadFiles[0]?.id ?? "");
+    setDownloadMenuOpen(false);
+  }, [build?.id]);
+
   const availableFormats = [...new Set(downloadFiles.map((file) => file.format))].join(", ");
 
   return (
@@ -67,13 +77,31 @@ const BuildDetailsPage = () => {
             ))}
           </div>
         </div>
-        <div className="details-actions">
-          {downloadFiles.map((file) => (
-            <NeonButton key={file.id} href={file.fileUrl} download>
-              Download {file.format}
-              {file.sizeBytes ? ` - ${formatBytes(file.sizeBytes)}` : ""}
-            </NeonButton>
-          ))}
+        <div
+          className="details-actions"
+          onMouseEnter={() => setDownloadMenuOpen(true)}
+          onMouseLeave={() => setDownloadMenuOpen(false)}
+        >
+          <NeonButton href={selectedDownload.fileUrl} download>
+            Download {selectedDownload.format}
+            {selectedDownload.sizeBytes ? ` - ${formatBytes(selectedDownload.sizeBytes)}` : ""}
+          </NeonButton>
+          <div className={`download-dropdown ${downloadMenuOpen ? "download-dropdown--open" : ""}`}>
+            {downloadFiles.map((file) => (
+              <button
+                key={file.id}
+                type="button"
+                className={`download-dropdown__item ${file.id === selectedDownload.id ? "download-dropdown__item--active" : ""}`}
+                onClick={() => {
+                  setSelectedDownloadId(file.id);
+                  setDownloadMenuOpen(false);
+                }}
+              >
+                {file.format}
+                {file.sizeBytes ? ` - ${formatBytes(file.sizeBytes)}` : ""}
+              </button>
+            ))}
+          </div>
           <NeonButton href={buildsService.resolveJsonLink(build.slug)} variant="ghost">
             JSON Endpoint
           </NeonButton>
@@ -89,7 +117,6 @@ const BuildDetailsPage = () => {
         <div className="meta-item"><strong>Version:</strong> {build.version}</div>
         <div className="meta-item"><strong>Added:</strong> {formatDate(build.dateAdded)}</div>
         <div className="meta-item"><strong>Size:</strong> {formatBytes(build.sizeBytes)}</div>
-        <div className="meta-item"><strong>Format:</strong> {build.format}</div>
         <div className="meta-item"><strong>Formats:</strong> {availableFormats}</div>
         <div className="meta-item"><strong>Dimensions:</strong> {build.metadata.dimensions}</div>
         <div className="meta-item"><strong>Blocks:</strong> {build.metadata.blocks}</div>
