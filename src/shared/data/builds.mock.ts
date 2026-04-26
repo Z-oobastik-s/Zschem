@@ -160,5 +160,118 @@ export const MOCK_BUILDS: BuildModel[] = [
       worldEditCompatible: true,
       sourceGameVersion: "1.20+"
     }
+  },
+  {
+    id: "b_07",
+    slug: "dragon-np",
+    title: "Dragon NP",
+    description:
+      "Large fantasy dragon structure for adventure hubs and dark-fantasy server zones.",
+    images: [
+      { id: "g1", imageUrl: "DragonNP/19407511-minecraft-night_xl.jpg", alt: "Dragon NP preview 1" },
+      { id: "g2", imageUrl: "DragonNP/19407513-minecraft-dragon_xl.jpg", alt: "Dragon NP preview 2" },
+      { id: "g3", imageUrl: "DragonNP/19407514-minecraft-free_xl.jpg", alt: "Dragon NP preview 3" },
+      { id: "g4", imageUrl: "DragonNP/19407516-minecraft-nether_xl.jpg", alt: "Dragon NP preview 4" },
+      { id: "g5", imageUrl: "DragonNP/19407518-minecraft-download_xl.jpg", alt: "Dragon NP preview 5" },
+      { id: "g6", imageUrl: "DragonNP/19407523-minecraft-vanilla_xl.jpg", alt: "Dragon NP preview 6" }
+    ],
+    fileUrl: "DragonNP/DragonNPv38-59.nbt",
+    format: "nbt",
+    sizeBytes: 599_777,
+    author: "Zoobastiks",
+    dateAdded: "2026-04-26T06:42:00.000Z",
+    version: "1.0.0",
+    tags: ["dragon", "fantasy", "nether"],
+    categories: ["Adventure", "Decoration"],
+    metadata: {
+      dimensions: "Large",
+      blocks: 0,
+      worldEditCompatible: true,
+      sourceGameVersion: "1.20+"
+    }
+  },
+  {
+    id: "b_08",
+    slug: "futuristic-house",
+    title: "Futuristic House",
+    description:
+      "Compact modern house with futuristic style for sci-fi survival or city maps.",
+    images: [
+      { id: "h1", imageUrl: "futuristichouse/19469773_xl.jpg", alt: "Futuristic House preview 1" },
+      { id: "h2", imageUrl: "futuristichouse/19469774_xl.jpg", alt: "Futuristic House preview 2" },
+      { id: "h3", imageUrl: "futuristichouse/19469775_xl.jpg", alt: "Futuristic House preview 3" },
+      { id: "h4", imageUrl: "futuristichouse/19469777_xl.jpg", alt: "Futuristic House preview 4" },
+      { id: "h5", imageUrl: "futuristichouse/19469778_xl.jpg", alt: "Futuristic House preview 5" }
+    ],
+    fileUrl: "futuristichouse/futuristichouse.schem",
+    format: "schem",
+    sizeBytes: 6_256,
+    author: "Zoobastiks",
+    dateAdded: "2026-04-26T06:39:00.000Z",
+    version: "1.0.0",
+    tags: ["futuristic", "house", "starter"],
+    categories: ["House", "Sci-Fi"],
+    metadata: {
+      dimensions: "Small",
+      blocks: 0,
+      worldEditCompatible: true,
+      sourceGameVersion: "1.20+"
+    }
+  },
+  {
+    id: "b_09",
+    slug: "futuristic-house-2",
+    title: "Futuristic House 2",
+    description:
+      "Second variant of futuristic compact house with refined structure and details.",
+    images: [
+      { id: "i1", imageUrl: "futuristichouse2/19494654_xl.jpg", alt: "Futuristic House 2 preview 1" },
+      { id: "i2", imageUrl: "futuristichouse2/19494655_xl.jpg", alt: "Futuristic House 2 preview 2" },
+      { id: "i3", imageUrl: "futuristichouse2/19494656_xl.jpg", alt: "Futuristic House 2 preview 3" },
+      { id: "i4", imageUrl: "futuristichouse2/19494658_xl.jpg", alt: "Futuristic House 2 preview 4" },
+      { id: "i5", imageUrl: "futuristichouse2/19494662_xl.jpg", alt: "Futuristic House 2 preview 5" },
+      { id: "i6", imageUrl: "futuristichouse2/19494663_xl.jpg", alt: "Futuristic House 2 preview 6" }
+    ],
+    fileUrl: "futuristichouse2/futuristichouse2.schem",
+    format: "schem",
+    sizeBytes: 6_743,
+    author: "Zoobastiks",
+    dateAdded: "2026-04-26T06:39:00.000Z",
+    version: "1.0.0",
+    tags: ["futuristic", "house", "modern"],
+    categories: ["House", "Sci-Fi"],
+    metadata: {
+      dimensions: "Small",
+      blocks: 0,
+      worldEditCompatible: true,
+      sourceGameVersion: "1.20+"
+    }
+  },
+  {
+    id: "b_10",
+    slug: "creaking-heart-tree",
+    title: "Creaking Heart Tree",
+    description:
+      "Mystic tree build with fantasy mood, suitable for themed spawn and quest locations.",
+    images: [
+      { id: "j1", imageUrl: "Creaking Heart Tree/19621937_xl.jpg", alt: "Creaking Heart Tree preview 1" },
+      { id: "j2", imageUrl: "Creaking Heart Tree/19621938_xl.jpg", alt: "Creaking Heart Tree preview 2" },
+      { id: "j3", imageUrl: "Creaking Heart Tree/19621939_xl.jpg", alt: "Creaking Heart Tree preview 3" },
+      { id: "j4", imageUrl: "Creaking Heart Tree/19621942_xl.jpg", alt: "Creaking Heart Tree preview 4" }
+    ],
+    fileUrl: "Creaking Heart Tree/Creaking Heart Tree.litematic",
+    format: "litematic",
+    sizeBytes: 131_449,
+    author: "Zoobastiks",
+    dateAdded: "2026-04-26T06:34:00.000Z",
+    version: "1.0.0",
+    tags: ["tree", "fantasy", "quest"],
+    categories: ["Nature", "Adventure"],
+    metadata: {
+      dimensions: "Medium",
+      blocks: 0,
+      worldEditCompatible: false,
+      sourceGameVersion: "1.20+"
+    }
   }
 ];
