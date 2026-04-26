@@ -1,0 +1,11 @@
+:root {
+  --bg: #05050a;
+  --bg-soft: #0c0c15;
+  --text: #f1f8ff;
+  --muted: #89a3b9;
+  --neon: #47e5ff;
+  --neon-soft: rgba(71, 229, 255, 0.3);
+  --pink: #da6bff;
+  --border: rgba(255, 255, 255, 0.12);
+  --card: rgba(17, 20, 32, 0.85);
+}
