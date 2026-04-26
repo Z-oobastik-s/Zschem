@@ -15,6 +15,5 @@ export const appRouter = createHashRouter(
       path: ROUTES.buildDetails,
       element: <BuildDetailsPage />
     }
-  ],
-  { basename: import.meta.env.BASE_URL }
+  ]
 );
