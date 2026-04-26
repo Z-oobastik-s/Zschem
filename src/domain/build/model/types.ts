@@ -6,6 +6,14 @@ export interface BuildAsset {
   alt: string;
 }
 
+export interface BuildDownloadFile {
+  id: string;
+  format: BuildFileFormat;
+  fileUrl: string;
+  sizeBytes?: number;
+  label?: string;
+}
+
 export interface BuildMetadata {
   dimensions: string;
   blocks: number;
@@ -22,6 +30,7 @@ export interface BuildModel {
   images: BuildAsset[];
   fileUrl: string;
   format: BuildFileFormat;
+  downloadFiles?: BuildDownloadFile[];
   sizeBytes: number;
   author: string;
   dateAdded: string;

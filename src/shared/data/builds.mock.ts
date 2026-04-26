@@ -177,6 +177,29 @@ export const MOCK_BUILDS: BuildModel[] = [
     ],
     fileUrl: "DragonNP/DragonNPv38-59.nbt",
     format: "nbt",
+    downloadFiles: [
+      {
+        id: "gdl-1",
+        format: "nbt",
+        fileUrl: "DragonNP/DragonNPv38-59.nbt",
+        sizeBytes: 599_777,
+        label: "DragonNP .nbt"
+      },
+      {
+        id: "gdl-2",
+        format: "schem",
+        fileUrl: "DragonNP/DragonNPv38-59.schem",
+        sizeBytes: 13_064,
+        label: "DragonNP .schem"
+      },
+      {
+        id: "gdl-3",
+        format: "litematic",
+        fileUrl: "DragonNP/DragonNPv38-59.litematic",
+        sizeBytes: 15_402,
+        label: "DragonNP .litematic"
+      }
+    ],
     sizeBytes: 599_777,
     author: "Zoobastiks",
     dateAdded: "2026-04-26T06:42:00.000Z",

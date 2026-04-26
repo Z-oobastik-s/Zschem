@@ -35,6 +35,21 @@ const BuildDetailsPage = () => {
     );
   }
 
+  const downloadFiles =
+    build.downloadFiles && build.downloadFiles.length > 0
+      ? build.downloadFiles
+      : [
+          {
+            id: `${build.id}-default`,
+            fileUrl: build.fileUrl,
+            format: build.format,
+            sizeBytes: build.sizeBytes,
+            label: `${build.title} .${build.format}`
+          }
+        ];
+
+  const availableFormats = [...new Set(downloadFiles.map((file) => file.format))].join(", ");
+
   return (
     <main className="layout">
       <Link className="back-link" to="/">
@@ -53,9 +68,12 @@ const BuildDetailsPage = () => {
           </div>
         </div>
         <div className="details-actions">
-          <NeonButton href={build.fileUrl} download>
-            Download {build.format}
-          </NeonButton>
+          {downloadFiles.map((file) => (
+            <NeonButton key={file.id} href={file.fileUrl} download>
+              Download {file.format}
+              {file.sizeBytes ? ` - ${formatBytes(file.sizeBytes)}` : ""}
+            </NeonButton>
+          ))}
           <NeonButton href={buildsService.resolveJsonLink(build.slug)} variant="ghost">
             JSON Endpoint
           </NeonButton>
@@ -72,6 +90,7 @@ const BuildDetailsPage = () => {
         <div className="meta-item"><strong>Added:</strong> {formatDate(build.dateAdded)}</div>
         <div className="meta-item"><strong>Size:</strong> {formatBytes(build.sizeBytes)}</div>
         <div className="meta-item"><strong>Format:</strong> {build.format}</div>
+        <div className="meta-item"><strong>Formats:</strong> {availableFormats}</div>
         <div className="meta-item"><strong>Dimensions:</strong> {build.metadata.dimensions}</div>
         <div className="meta-item"><strong>Blocks:</strong> {build.metadata.blocks}</div>
         <div className="meta-item">

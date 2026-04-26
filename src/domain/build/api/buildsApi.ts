@@ -1,4 +1,4 @@
-import { BuildModel, BuildQueryParams } from "@domain/build/model/types";
+import { BuildFileFormat, BuildModel, BuildQueryParams } from "@domain/build/model/types";
 import { MOCK_BUILDS } from "@shared/data/builds.mock";
 
 const simulatedRequest = async <TData>(data: TData): Promise<TData> =>
@@ -21,13 +21,21 @@ const matchSearch = (build: BuildModel, query: string) => {
 const includesAny = (source: string[], values: string[]) =>
   values.length === 0 || values.some((value) => source.includes(value));
 
+const getBuildFormats = (build: BuildModel): BuildFileFormat[] => {
+  if (!build.downloadFiles || build.downloadFiles.length === 0) {
+    return [build.format];
+  }
+  return [...new Set(build.downloadFiles.map((file) => file.format))];
+};
+
 export const buildsApi = {
   getAll: async (query: BuildQueryParams): Promise<BuildModel[]> => {
     const filtered = MOCK_BUILDS.filter((build) => {
       const passSearch = matchSearch(build, query.search);
       const passTags = includesAny(build.tags, query.tags);
       const passCategories = includesAny(build.categories, query.categories);
-      const passFormats = query.formats.length === 0 || query.formats.includes(build.format);
+      const passFormats =
+        query.formats.length === 0 || getBuildFormats(build).some((format) => query.formats.includes(format));
       return passSearch && passTags && passCategories && passFormats;
     });
     return simulatedRequest(filtered);
