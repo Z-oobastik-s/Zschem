@@ -28,12 +28,18 @@ export const FiltersPanel = ({
   onToggleCollapsed
 }: FiltersPanelProps) => (
   <aside className={`filters-panel filters-panel--sidebar ${collapsed ? "filters-panel--collapsed" : ""}`}>
-    <div className="filters-panel__header">
-      <h3>Filters</h3>
-      <button className="filters-panel__collapse" type="button" onClick={onToggleCollapsed}>
-        {collapsed ? ">" : "<"}
+    {collapsed ? (
+      <button className="filters-panel__collapsed-trigger" type="button" onClick={onToggleCollapsed}>
+        FILTER
       </button>
-    </div>
+    ) : (
+      <div className="filters-panel__header">
+        <h3>Filters</h3>
+        <button className="filters-panel__collapse" type="button" onClick={onToggleCollapsed}>
+          {"<"}
+        </button>
+      </div>
+    )}
     <div className="filters-panel__top">
       <input
         className="neon-input"
