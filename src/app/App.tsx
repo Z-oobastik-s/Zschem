@@ -10,10 +10,12 @@ const INTRO_VIDEO_SRC = `${import.meta.env.BASE_URL}Video/intro.mp4?v=${__APP_BU
 export const App = () => {
   const [showIntro, setShowIntro] = useState(true);
   const [introFading, setIntroFading] = useState(false);
-  const [soundBlocked, setSoundBlocked] = useState(false);
+  const [introStarted, setIntroStarted] = useState(false);
   const introVideoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
+    if (!introStarted) return;
+
     const fadeTimer = window.setTimeout(() => {
       setIntroFading(true);
     }, INTRO_FADE_START_MS);
@@ -26,29 +28,20 @@ export const App = () => {
       window.clearTimeout(fadeTimer);
       window.clearTimeout(hideTimer);
     };
-  }, []);
+  }, [introStarted]);
 
-  const applyIntroSound = async () => {
+  const handleStartIntro = async () => {
     const video = introVideoRef.current;
+    setIntroStarted(true);
     if (!video) return;
-    video.volume = 0.05;
-    video.muted = false;
+
     try {
+      video.volume = 0.05;
+      video.muted = false;
       await video.play();
-      setSoundBlocked(false);
     } catch {
-      video.muted = true;
-      setSoundBlocked(true);
+      // No-op: when play fails, browser still requires another interaction.
     }
-  };
-
-  const handleEnableSoundClick = async () => {
-    const video = introVideoRef.current;
-    if (!video) return;
-    video.volume = 0.05;
-    video.muted = false;
-    await video.play();
-    setSoundBlocked(false);
   };
 
   return (
@@ -59,17 +52,14 @@ export const App = () => {
             ref={introVideoRef}
             className="intro-overlay__video"
             src={INTRO_VIDEO_SRC}
-            autoPlay
+            autoPlay={introStarted}
             muted
             playsInline
             preload="auto"
-            onLoadedData={() => {
-              void applyIntroSound();
-            }}
           />
-          {soundBlocked && (
-            <button className="intro-overlay__sound-button" type="button" onClick={() => void handleEnableSoundClick()}>
-              Enable sound 5%
+          {!introStarted && (
+            <button className="intro-overlay__start-button" type="button" onClick={() => void handleStartIntro()}>
+              Start intro (sound 5%)
             </button>
           )}
         </div>

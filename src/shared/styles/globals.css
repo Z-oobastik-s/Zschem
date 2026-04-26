@@ -8,26 +8,13 @@ body {
 
 html,
 body {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(71, 229, 255, 0.28) transparent;
+  scrollbar-width: none;
 }
 
 *::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
-}
-
-*::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: rgba(71, 229, 255, 0.25);
-  border-radius: 999px;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background: rgba(71, 229, 255, 0.45);
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 a {
@@ -492,16 +479,18 @@ a {
   object-fit: contain;
 }
 
-.intro-overlay__sound-button {
+.intro-overlay__start-button {
   position: absolute;
-  right: 1rem;
-  bottom: 1rem;
+  left: 50%;
+  bottom: 2.2rem;
+  transform: translateX(-50%);
   border: 1px solid rgba(71, 229, 255, 0.6);
   background: rgba(4, 16, 28, 0.86);
   color: #d2fbff;
   border-radius: 8px;
-  padding: 0.48rem 0.7rem;
-  font-size: 0.74rem;
+  padding: 0.62rem 0.92rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
   cursor: pointer;
 }
 
