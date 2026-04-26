@@ -5,6 +5,7 @@ import { AppProviders } from "@app/providers/AppProviders";
 
 const INTRO_DURATION_MS = 5000;
 const INTRO_FADE_START_MS = 4300;
+const INTRO_VIDEO_SRC = `${import.meta.env.BASE_URL}Video/intro.mp4?v=${__APP_BUILD_ID__}`;
 
 export const App = () => {
   const [showIntro, setShowIntro] = useState(true);
@@ -36,7 +37,7 @@ export const App = () => {
         <div className={`intro-overlay ${introFading ? "intro-overlay--fade" : ""}`}>
           <video
             className="intro-overlay__video"
-            src={`${import.meta.env.BASE_URL}Video/intro.mp4`}
+            src={INTRO_VIDEO_SRC}
             autoPlay
             muted
             playsInline

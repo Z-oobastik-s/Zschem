@@ -7,6 +7,9 @@ const repoName = "Zschem";
 export default defineConfig({
   plugins: [react()],
   base: process.env.NODE_ENV === "production" ? `/${repoName}/` : "/",
+  define: {
+    __APP_BUILD_ID__: JSON.stringify(process.env.GITHUB_SHA ?? Date.now().toString())
+  },
   resolve: {
     alias: {
       "@app": fileURLToPath(new URL("./src/app", import.meta.url)),
